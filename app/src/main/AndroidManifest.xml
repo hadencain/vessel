@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+    <uses-feature android:name="android.hardware.camera.ar" android:required="true" />
+    <uses-feature android:name="android.hardware.camera" android:required="true" />
+    <uses-feature android:glEsVersion="0x00030001" android:required="true" />
+
+    <application
+        android:label="VESSEL"
+        android:icon="@android:drawable/sym_def_app_icon"
+        android:theme="@style/Theme.Vessel"
+        android:hardwareAccelerated="true"
+        android:allowAudioPlaybackCapture="true">
+
+        <meta-data
+            android:name="com.google.ar.core"
+            android:value="required" />
+
+        <activity
+            android:name=".MenuActivity"
+            android:exported="true"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".ArActivity"
+            android:exported="false"
+            android:screenOrientation="landscape"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+
+    </application>
+</manifest>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.Vessel" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="colorPrimary">#40FF90</item>
+        <item name="colorPrimaryDark">#050508</item>
+        <item name="colorAccent">#40FF90</item>
+        <item name="android:windowBackground">#050508</item>
+        <item name="android:statusBarColor">#050508</item>
+        <item name="android:navigationBarColor">#050508</item>
+    </style>
+
+    <style name="ParamLabel" parent="android:Widget.TextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#446655</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:fontFamily">monospace</item>
+        <item name="android:letterSpacing">0.15</item>
+        <item name="android:layout_marginBottom">4dp</item>
+    </style>
+
+</resources>

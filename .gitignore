@@ -1,0 +1,30 @@
+*.iml
+.gradle
+/local.properties
+/.idea
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+
+# Auto-downloaded model file
+app/src/main/assets/hand_landmarker.task
+
+# Private session log — never commit
+SESSION_LOG.md
+
+# Local design docs — never commit
+docs/superpowers/
+
+# Build artifacts
+app/build/
+
+# Claude Code local config — machine-specific paths
+.claude/settings.json
+.claude/settings.local.json
+CLAUDE.md
+.claude/
+.superpowers/
+scratch/

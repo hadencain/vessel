@@ -1,0 +1,79 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
+
+// Auto-download the MediaPipe hand landmarker model if missing
+task downloadHandLandmarker {
+    def dest = file("src/main/assets/hand_landmarker.task")
+    onlyIf { !dest.exists() }
+    doLast {
+        def url = "https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/latest/hand_landmarker.task"
+        println "Downloading hand_landmarker.task..."
+        dest.parentFile.mkdirs()
+        new URL(url).withInputStream { i -> dest.withOutputStream { o -> o << i } }
+        println "Downloaded hand_landmarker.task (${dest.length()} bytes)"
+    }
+}
+preBuild.dependsOn downloadHandLandmarker
+
+android {
+    namespace 'com.vessel'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.vessel"
+        minSdk 34
+        targetSdk 34
+        versionCode 1
+        versionName "0.1.0"
+
+        ndk {
+            abiFilters "arm64-v8a"
+        }
+
+        externalNativeBuild {
+            cmake {
+                cppFlags "-std=c++17 -O2 -ffast-math"
+                arguments "-DANDROID_STL=c++_shared",
+                          "-DANDROID_PLATFORM=android-34"
+            }
+        }
+    }
+
+    externalNativeBuild {
+        cmake {
+            path "src/main/cpp/CMakeLists.txt"
+            version "3.22.1"
+        }
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+
+    packagingOptions {
+        pickFirst 'lib/arm64-v8a/libmediapipe_tasks_vision_jni.so'
+    }
+}
+
+dependencies {
+    implementation 'com.google.ar:core:1.44.0'
+    implementation 'com.google.mediapipe:tasks-vision:0.10.14'
+    implementation 'androidx.core:core-ktx:1.13.1'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'androidx.activity:activity-ktx:1.9.0'
+    implementation 'com.google.android.material:material:1.12.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.8.3'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1'
+}
